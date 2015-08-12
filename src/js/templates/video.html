@@ -1,6 +1,13 @@
 <div class="int-wrapper">
 	<div class="int-{{block.class}} int-video">
-		<video src="{{block.src}}" controls class="int-video__elem"></video>
+		<div class="int-video__wrapper" id="{{block.id}}-wrapper">
+			<video id="{{block.id}}" src="{{block.src}}" class="int-video__elem"></video>
+			<div class="int-video__overlay">
+				<div class="int-video__replay" id="replay">
+					<div class="play-icon"></div>
+				</div>
+			</div>
+		</div>
 		{{#block.caption}}<div class="int-video__caption">{{.}}</div>{{/block.caption}}
 	</div>
 </div>

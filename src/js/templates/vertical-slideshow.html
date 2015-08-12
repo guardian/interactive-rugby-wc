@@ -1,0 +1,8 @@
+<div class="int-vertical-slideshow">
+	{{#block.images}}
+		<div class="int-vertical-slideshow__wrapper">
+			<div class="int-vertical-slideshow__image {{class}}" style="background-image: url('{{src_alt}}');" id="{{id}}"></div>
+			{{#caption}}<div class="int-vertical-slideshow__caption">{{.}}</div>{{/caption}}
+		</div>
+	{{/block.images}}
+</div>
