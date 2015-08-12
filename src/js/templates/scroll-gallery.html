@@ -1,0 +1,8 @@
+<div class="int-wrapper">
+	<div class="int-scroll-gallery">
+		{{#block.images}}
+			<div class="int-scroll-gallery__image" style="background-image: url('{{src_alt}}');"></div>
+		{{/block.images}}
+		{{#block.caption}}<div class="int-scroll-gallery__caption">{{.}}</div>{{/block.caption}}
+	</div>
+</div>

@@ -1,0 +1,6 @@
+<div class="int-wrapper">
+	<div class="int-{{block.class}} int-video">
+		<video src="{{block.src}}" autoplay class="int-video__elem">
+		{{#block.caption}}<div class="int-image__caption">{{.}}</div>{{/block.caption}}
+	</div>
+</div>
