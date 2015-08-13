@@ -6,45 +6,35 @@ export class VerticalSlideshow extends Block {
     set() {
         this.template = verticalSlideshowTmpl;
         this.setScrollCount = 0;
+        this.block.wrapperRandomId = Math.random().toString(36).substring(2,7);
     }
 
     afterRender() {
-        this.images = this.block.images.map(function(image) {
-        	return document.getElementById(image.id);
-        });
-
+        this.images = this.block.images.map((image) => document.getElementById(image.id));
+        this.wrapperEl = document.getElementById(this.block.wrapperRandomId);
         this.setScroll();
+        this.tickEl = document.getElementById("tick-" + this.block.wrapperRandomId);
     }
 
     setScroll() {
-        this.imageOffsets = this.images.map(function(image) {
-        	return getCumulativeOffset(image).y;
-        });
-
+        this.imageOffsets = this.images.map((image) => getCumulativeOffset(image).y);
         this.setScrollCount++;
     }
 
     onScroll(scrollY) {
-    	let self = this;
-    	if(scrollY > 1000 && this.setScrollCount < 2) {
+    	if(scrollY > 2500 && this.setScrollCount < 2) {
     		this.setScroll();
     	}
 
-    	if(this.imageOffsets[this.images.length-1] < scrollY) {
-    		this.images.map(function(image, i) {
-    			image.classList.remove("img-fixed");
-    			if(i === self.imageOffsets.length-1) {
-    				image.classList.add("img-past")
-    			}
-    		});
-    	} else {
-    		this.images.map(function(image, i) {
-    			if(self.imageOffsets[i] < scrollY || (i !== 0 && self.imageOffsets[i] < scrollY + window.innerHeight/2)) {
-    				image.classList.add("img-fixed");
-    			} else {
-    				image.classList.remove("img-fixed");
-    			}
-    		});
-    	}
+   		if(this.imageOffsets[this.images.length-1] > scrollY && this.imageOffsets[0] < scrollY) {
+   			this.wrapperEl.classList.add("int-images-fixed");
+   			this.tickEl.style.width = ((scrollY - this.imageOffsets[0])*100) / (this.imageOffsets[this.images.length-1] - this.imageOffsets[0]) + "%";
+   		} else {
+   			this.wrapperEl.classList.remove("int-images-fixed");
+   		}
+
+   		this.imageOffsets.map((offset, i) => (offset < scrollY + window.innerHeight/2)
+   			? this.images[i].classList.add("int-fixed") 
+   			: this.images[i].classList.remove("int-fixed"));
     }
 }

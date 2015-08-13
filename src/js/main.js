@@ -22,7 +22,6 @@ export function init(el, context, config, mediator) {
 
 function app(resp, el) {
 	var blocksData = cleanData(resp.blocks),
-		toRender = "",
 		components = {
 			header: Header,
 			pullByline: PullByline,
@@ -38,6 +37,13 @@ function app(resp, el) {
 		blocks.push(new components[block.block](block, resp.config));
 	});
 
+	renderPage(el, blocks);
+	initScroll(blocks);
+}
+
+function renderPage(el, blocks) {
+	var toRender = "";
+
 	blocks.map(function(block) {
 		toRender += block.generate();
 	});
@@ -47,7 +53,9 @@ function app(resp, el) {
 	blocks.map(function(block) {
 		block.afterRender();
 	});
+}
 
+function initScroll(blocks) {
 	window.onscroll = function() {
 		let scrollY = window.scrollY;
 

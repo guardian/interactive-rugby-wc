@@ -1,8 +1,8 @@
 <div class="int-inner int-pullbyline {{block.pullbyline}}">
 	<div class="int-pullbyline__block">
-		<img src="{{block.byline_photo}}">
+		{{#block.byline_photos}}<img src="{{.}}">{{/block.byline_photos}}
 		<div class="int-pullbyline__byline">
-			<a href="{{block.byline_link}}">{{block.byline}}</a>
+			{{#block.byline}}<span><a href="{{link}}">{{name}}</a></span>{{/block.byline}}
 		</div>
 		<div class="int-pullbyline__date">
 			{{block.date_published}}
