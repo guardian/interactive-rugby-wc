@@ -27,7 +27,6 @@ $text-sans: "Guardian Text Sans Web";
     margin: auto;
     position: relative;
     background-color: #fff;
-    min-height: 24px;
     @include mq(tablet) {
         width: 740px;
     }
@@ -50,8 +49,14 @@ $text-sans: "Guardian Text Sans Web";
     width: 100%;
     margin: auto;
     position: relative;
-    @include mq(wide) {
+
+    @include mq(tablet) {
         width: 660px;
+        box-sizing: initial;
+    }
+
+    @include mq(desktop, leftCol) {
+        padding-left: 240px;
     }
 }
 
@@ -79,10 +84,16 @@ $text-sans: "Guardian Text Sans Web";
         .int-header__text-wrapper {
             float: left;
             z-index: 10;
+            top: 6px;
+
+            @include mq(desktop) {
+                width: 200px;
+                margin-left: -200px;
+            }
+
             @include mq(wide) {
                 width: 200px;
                 margin-left: -240px;
-                top: 6px;
             }
         }
         h1 {
@@ -102,6 +113,8 @@ $text-sans: "Guardian Text Sans Web";
         height: 90vh;
         width: 100%;
         padding-bottom: 36px; //until caption added
+        background-size: cover;
+        background-position: center center;
     }
 }
 
@@ -110,6 +123,11 @@ $text-sans: "Guardian Text Sans Web";
     font-size: 18px;
     line-height: 1.7;
     color: #333333;
+
+    @include mq($until: tablet) {
+        padding: 0 20px;
+    }
+
     &.first-block {
         &::first-letter {
             font-family: $egyptian;
@@ -127,8 +145,7 @@ $text-sans: "Guardian Text Sans Web";
 
 .int-copy__quote {
     float: left;
-    width: 420px;
-    margin-left: -240px;
+    width: 100%;
     font-family: $egyptian;
     font-size: 36px;
     line-height: 42px;
@@ -136,12 +153,53 @@ $text-sans: "Guardian Text Sans Web";
     margin-bottom: 24px;
     color: #767676;
     font-weight: 200;
+
+    @include mq(desktop) {
+        width: 420px;
+        margin-left: -200px;
+    }
+
+    @include mq(wide) {
+        margin-left: -240px;
+    }
 }
 
 // image 
 .int-image {
     img {
         width: 100%;
+    }
+
+    &.supporting {
+        @include mq(tablet) {
+            margin-left: 40px;
+            width: 380px;
+
+            float: left;
+            margin-right: 20px;
+            z-index: 2;
+
+            img {
+                margin-top: 8px;
+            }
+
+            .int-image__caption {
+                padding-bottom: 0;
+            }
+        }
+
+        @include mq(desktop) {
+            width: 440px;
+            margin-left: -160px;
+        }
+
+        @include mq(leftCol) {
+            margin-left: 40px;
+        }
+
+        @include mq(wide) {
+            margin-left: 80px;
+        }
     }
 }
 
@@ -151,9 +209,18 @@ $text-sans: "Guardian Text Sans Web";
     font-size: 12px;
     padding-top: 6px;
     padding-bottom: 24px;
-    width: 660px;
+    max-width: 660px;
     .int-outer & {
         margin: auto;
+    }
+    .supporting & {
+        width: auto;
+    }
+
+    @include mq($until: tablet) {
+        padding-left: 20px;
+        padding-right: 20px;
+        width: 100%;
     }
 }
 
@@ -171,7 +238,23 @@ $text-sans: "Guardian Text Sans Web";
     padding-top: 6px;
     padding-bottom: 24px;
     .int-outer & {
-        padding-left: 440px;
+        padding-left: 20px;
+
+        @include mq(tablet) {
+            padding-left: 40px;
+        }
+
+        @include mq(desktop) {
+            padding-left: 260px;
+        }
+
+        @include mq(leftCol) {
+            padding-left: 240px;
+        }
+
+        @include mq(wide) {
+            padding-left: 320px;
+        }
     }
 }
 
@@ -250,11 +333,24 @@ $text-sans: "Guardian Text Sans Web";
 // pullByline 
 .int-pullbyline {
     .int-pullbyline__block {
-        position: absolute;
-        width: 200px;
+
         z-index: 10;
-        margin-left: -240px;
         padding-top: 36px;
+
+        @include mq(desktop) {
+            position: absolute;
+        }
+
+        @include mq(desktop) {
+            margin-left: -200px;
+            width: 160px;
+        }
+
+        @include mq(wide) {
+            width: 200px;
+            margin-left: -240px;
+        }
+
         img {
             width: 70px;
             height: 70px;
@@ -368,6 +464,7 @@ $text-sans: "Guardian Text Sans Web";
 // vertical slideshow 
 .int-vertical-slideshow {
     position: relative;
+    background-color: #000;
 }
 
 .int-vertical-slideshow__image {
@@ -381,13 +478,17 @@ $text-sans: "Guardian Text Sans Web";
     left: 0;
     transform: translate3d(0, 0, 0);
     will-change: position, opacity;
-    z-index: 2;
+    z-index: 5;
+    transition: opacity 0.5s ease-in-out;
+
     &.int-fixed {
-        z-index: 2;
+        z-index: 6;
         opacity: 1;
     }
     &.first {
-        opacity: 1 !important;
+        @include mq(desktop) {
+            opacity: 1 !important;
+        }
     }
     .int-images-fixed & {
         position: fixed;
@@ -407,6 +508,16 @@ $text-sans: "Guardian Text Sans Web";
     left: 0;
     z-index: 10;
     padding-top: 300px;
+
+    @include mq($until: tablet) {
+        padding-left: 20px;
+        padding-right: 20px;
+        font-size: 28px;
+        line-height: 32px;
+        width: 100%;
+        padding-top: 50vh;
+        height: 200vh;
+    }
 }
 
 .int-vertical-slideshow__wrapper {

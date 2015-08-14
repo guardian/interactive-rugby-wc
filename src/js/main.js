@@ -1,5 +1,6 @@
 import reqwest from 'reqwest'
 import mustache from 'mustache'
+import hammer from 'hammer'
 
 import { cleanData } from './components/helpers'
 

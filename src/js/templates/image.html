@@ -1,6 +1,6 @@
 <div class="int-wrapper">
-	<div class="int-{{block.class}} int-image">
-		<img src="" class="int-image__elem" id={{block.randomId}}>
+	<div class="int-{{block.class}} int-image" id="{{block.randomId}}">
+		{{#block.src}}<img src="{{.}}2000.jpg" class="int-image__elem">{{/block.src}}
 		{{#block.caption}}<div class="int-image__caption">{{.}}</div>{{/block.caption}}
 	</div>
 </div>

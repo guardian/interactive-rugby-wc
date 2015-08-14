@@ -16,6 +16,7 @@ System.config({
 System.config({
   "map": {
     "guardian/iframe-messenger": "github:guardian/iframe-messenger@master",
+    "hammer": "github:hammerjs/hammer.js@2.0.4",
     "json": "github:systemjs/plugin-json@0.1.0",
     "mustache": "github:janl/mustache.js@2.1.3",
     "reqwest": "github:ded/reqwest@1.1.5",
