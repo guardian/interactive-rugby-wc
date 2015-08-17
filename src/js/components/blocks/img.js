@@ -1,22 +1,66 @@
 import { Block } from '../../components/block'
 import imgTmpl from '../../templates/image.html!text'
 import { getCumulativeOffset } from '../../components/helpers'
+import { prettifyTime } from '../../components/helpers'
 
 export class Image extends Block {
     set() {
         this.template = imgTmpl;
         this.block.randomId = Math.random().toString(36).substring(2,7);
+        if(this.block.audio) { this.block.audio.randomId = this.block.randomId; } 
         this.block.src = (typeof this.block.src === "string") ? this.block.src.split(this.block.randomId) : this.block.src;
     }
 
     afterRender() {
         this.el = document.getElementById(this.block.randomId);
         this.images = this.el.getElementsByTagName("img");
-        this.offsets = [];
+        
+        this.calcOffsets();
 
+        if(this.block.audio) {
+            this.initAudio();
+        }
+    }
+
+    calcOffsets() {
+        this.offsets = [];
         for(var i = 0; i < this.images.length; i++) {
             this.offsets.push(getCumulativeOffset(this.images[i]).y);
         }
+    }
+
+    initAudio() {
+        this.playButton = document.getElementById("play-" + this.block.randomId);
+        this.timerEl = document.getElementById("timer-" + this.block.randomId);
+        this.audioTagEl = document.getElementById("audio-" + this.block.randomId);
+
+        this.playButton.addEventListener("click", this.playClick.bind(this));
+        console.log(this.playButton);
+
+        this.audioTagEl.addEventListener("loadeddata", this.updateTime.bind(this));
+        this.audioTagEl.addEventListener("ended", this.onEnded.bind(this));
+        this.audioTagEl.addEventListener("timeupdate", this.updateTime.bind(this));
+    }
+
+    updateTime() {
+        let secondsRemaining = this.audioTagEl.duration - this.audioTagEl.currentTime;
+
+        this.timerEl.innerHTML = prettifyTime(secondsRemaining);
+    }
+
+    onEnded() {
+        this.audioTagEl.setAttribute("ended", "");
+        this.audioTagEl.removeAttribute("playing"); 
+    }
+
+    playClick() {
+        if(this.audioTagEl.paused) {
+            this.audioTagEl.play();
+            this.audioTagEl.setAttribute("playing","");
+        } else {
+            this.audioTagEl.pause();
+            this.audioTagEl.removeAttribute("playing","");
+        } 
     }
 
     onScroll(scrollY) {
@@ -26,5 +70,9 @@ export class Image extends Block {
                 this.onScroll = null;
             }
         }
+    }
+
+    onResize(width) {
+        this.calcOffsets;
     }
 }

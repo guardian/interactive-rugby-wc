@@ -1,8 +1,9 @@
-<div class="int-header {{block.class}}" style="background-image: url('{{block.src}}2000.jpg');">
+<div class="int-header {{block.class}}">
+	<video src="{{block.src}}" id="{{block.id}}" loop {{#block.autoplay}}autoplay{{/block.autoplay}}></video>
 	<div class="int-main int-outer">
 		<div class="int-header__text-wrapper">
-			{{#block.kicker}}<h3>{{.}}</h3>{{/block.kicker}}
-			<h1 class="int-text-shadow">{{block.headline}}</h1>
+		{{#block.kicker}}<h3>{{.}}</h3>{{/block.kicker}}
+		<h1 class="int-text-shadow">{{block.headline}}</h1>
 		</div>
 	</div>
 </div>

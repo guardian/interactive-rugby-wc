@@ -1,6 +1,18 @@
-<div class="int-wrapper">
+<div class="int-wrapper clearfix">
 	<div class="int-{{block.class}} int-image" id="{{block.randomId}}">
-		{{#block.src}}<img src="{{.}}2000.jpg" class="int-image__elem">{{/block.src}}
+		{{#block.src}}<img src="{{.}}800.jpg" class="int-image__elem">{{/block.src}}
 		{{#block.caption}}<div class="int-image__caption">{{.}}</div>{{/block.caption}}
+		{{#block.audio}}
+			<div class="int-audio">
+			    <audio id="audio-{{randomId}}">
+			        <source src="{{src}}" type="audio/mpeg">
+			    </audio>
+			    <div class="audio-play" id="play-{{randomId}}"></div>
+			    <div class="int-audio__caption">
+			    	{{title}}
+			    </div>
+			    <div class="int-audio__timer" id="timer-{{randomId}}"></div>
+	    	</div>
+		{{/block.audio}}
 	</div>
 </div>
