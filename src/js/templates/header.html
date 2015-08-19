@@ -1,9 +1,13 @@
-<div class="int-header {{block.class}}">
-	<video src="{{block.src}}" id="{{block.id}}" loop {{#block.autoplay}}autoplay{{/block.autoplay}}></video>
-	<div class="int-main int-outer">
-		<div class="int-header__text-wrapper">
-		{{#block.kicker}}<h3>{{.}}</h3>{{/block.kicker}}
+<div class="int-header {{block.class}}" style="background-image: url('{{block.alt_path}}/1000.jpg');">
+	{{^isMobile}}
+	<video id="{{block.id}}" loop {{#block.autoplay}}autoplay{{/block.autoplay}} poster="{{block.src}}&maxbitrate=1000&format=video/mp4&poster=1" preload="none">
+		<source src="{{block.src}}&maxbitrate={{format}}&format=video/mp4" type="video/mp4">
+		<source src="{{block.src}}&maxbitrate={{format}}&format=video/webm" type="video/webm">
+	</video>
+	{{/isMobile}}
+	<div class="int-header__text-wrapper">
+		{{#block.kicker}}<h3 class="int-text-shadow">{{.}}</h3>{{/block.kicker}}
 		<h1 class="int-text-shadow">{{block.headline}}</h1>
-		</div>
+		{{#block.copy}}<h3 class="int-text-shadow">{{.}}</h3>{{/block.copy}}
 	</div>
 </div>

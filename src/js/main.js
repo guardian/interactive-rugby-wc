@@ -1,6 +1,6 @@
 import reqwest from 'reqwest'
 import mustache from 'mustache'
-import hammer from 'hammer'
+import bowser from '../../bower_components/bowser/bowser'
 
 import { cleanData } from './components/helpers'
 import { testBandwidth } from './components/testBandwidth'
@@ -24,7 +24,7 @@ export function init(el, context, config, mediator) {
             if (window.innerWidth > 600) {
                 testBandwidth(app, el, resp);
             } else {
-            	app("768k", el, resp);
+            	app("500", el, resp);
             }
         }
     });
@@ -43,10 +43,13 @@ function app(format, el, resp) {
             "scroll-gallery": ScrollGallery,
             audio: Audio
         },
-        blocks = [];
+        blocks = [],
+        bodyWidth  = document.getElementsByTagName("body")[0].clientWidth,
+        isMobile = (bowser.mobile || bodyWidth < 600) ? true : false;
 
+    
     blocksData.map(function(block, i) {
-        blocks.push(new components[block.block](block, resp.config, format));
+        blocks.push(new components[block.block](block, resp.config, format, isMobile));
     });
 
     renderPage(el, blocks);

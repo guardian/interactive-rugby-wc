@@ -1,11 +1,18 @@
 <div class="int-wrapper">
 	<div class="int-{{block.class}} int-video">
 		<div class="int-video__wrapper" id="{{block.id}}-wrapper">
-			<video id="{{block.id}}" src="{{block.src}}" class="int-video__elem" data-format="{{format}}"></video>
+			<video id="{{block.id}}" class="int-video__elem" preload="none" poster="{{block.src}}&maxbitrate=1000&format=video/mp4&poster=1">
+				<source src="{{block.src}}&maxbitrate={{format}}&format=video/mp4" type="video/mp4">
+				<source src="{{block.src}}&maxbitrate={{format}}&format=video/webm" type="video/webm">
+			</video>
 			<div class="int-video__overlay">
 				<div class="int-video__replay" id="replay">
 					<div class="play-icon"></div>
 				</div>
+				{{#block.overlayCaption}}<div class="int-inner"><div class="int-video__overlay-caption int-text-shadow">{{.}}</div></div>{{/block.overlayCaption}}
+			</div>
+			<div class="int-video__progress">
+				<div class="int-video__progress-tick" id="tick-{{block.id}}"></div>
 			</div>
 		</div>
 		{{#block.caption}}<div class="int-video__caption">{{.}}</div>{{/block.caption}}

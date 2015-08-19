@@ -14,18 +14,29 @@ export class Video extends Block {
         this.wrapperEl = document.getElementById(this.block.id + "-wrapper");
         this.el.addEventListener("ended", this.onEnded.bind(this));
         this.wrapperEl.addEventListener("click", this.wrapperClick.bind(this));
+        this.tickEl = document.getElementById("tick-" + this.block.id);
+        this.el.addEventListener("timeupdate", this.updateTime.bind(this));
     }
 
     onScroll(scrollY) {
-    	if(getCumulativeOffset(this.el).y - window.innerHeight/2 < scrollY && getCumulativeOffset(this.el).y > scrollY - window.innerHeight/4 && !this.stopped) {
+    	if(!this.mobile && getCumulativeOffset(this.el).y - window.innerHeight/2 < scrollY && getCumulativeOffset(this.el).y > scrollY - window.innerHeight/4 && !this.stopped && !this.wrapperEl.parentNode.classList.contains("supporting")) {
     		if(this.el.paused) {
     			this.el.play();
     			this.wrapperEl.setAttribute("playing", "");
+                this.wrapperEl.setAttribute("active", "");
     		}
-    	} else if (!this.el.paused) {
+    	} else if (!this.mobile && !this.el.paused) {
     		this.el.pause();
     		this.wrapperEl.removeAttribute("playing", "");
     	}
+    }
+
+    updateTime() {
+        this.tickEl.style.width = this.genProgressWidth() + "%";
+    }
+
+    genProgressWidth() {
+        return (this.el.currentTime/this.el.duration)*100;
     }
 
     onEnded() {
@@ -40,6 +51,7 @@ export class Video extends Block {
     		this.stopped = false;
     		this.wrapperEl.removeAttribute("ended");
     		this.wrapperEl.setAttribute("playing", "");
+            this.wrapperEl.setAttribute("active", "");
     	} else {
     		this.stopped = true;
     		this.el.pause();

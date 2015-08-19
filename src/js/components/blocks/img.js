@@ -8,7 +8,11 @@ export class Image extends Block {
         this.template = imgTmpl;
         this.block.randomId = Math.random().toString(36).substring(2,7);
         if(this.block.audio) { this.block.audio.randomId = this.block.randomId; } 
-        this.block.src = (typeof this.block.src === "string") ? this.block.src.split(this.block.randomId) : this.block.src;
+        // // this.block.src = (typeof this.block.src === "string") ? this.block.src.split(this.block.randomId) : this.block.src;
+
+        // console.log(this.sizes, this.block.src, this.block.src_path);
+
+        this.block.src = (this.block.src_path) ? this.block.src_path + "/" + this.sizes[0] + ".jpg" : false;
     }
 
     afterRender() {
@@ -51,22 +55,30 @@ export class Image extends Block {
     onEnded() {
         this.audioTagEl.setAttribute("ended", "");
         this.audioTagEl.removeAttribute("playing"); 
+        this.playButton.classList.remove("int-playing");
     }
 
     playClick() {
         if(this.audioTagEl.paused) {
             this.audioTagEl.play();
             this.audioTagEl.setAttribute("playing","");
+            this.playButton.classList.add("int-playing");
         } else {
             this.audioTagEl.pause();
             this.audioTagEl.removeAttribute("playing","");
+            this.playButton.classList.remove("int-playing");
         } 
+    }
+
+    sizeToUse(elWidth) {
+        let toReturn = this.sizes.filter(function(size) { return size > elWidth });
+        return toReturn[0];
     }
 
     onScroll(scrollY) {
         for(var i = 0; i < this.offsets.length; i++) {
             if(this.offsets[i] < scrollY + 2*window.innerHeight) {
-                this.images[i].setAttribute("src", this.block.src[i] + "2000.jpg");
+                this.images[i].setAttribute("src", this.block.src_path + "/" + this.sizeToUse(this.images[i].clientWidth) + ".jpg");
                 this.onScroll = null;
             }
         }

@@ -13,11 +13,11 @@ export class Header extends Block {
     }
 
     onScroll(scrollY) {
-    	if(getCumulativeOffset(this.el).y - window.innerHeight/2 < scrollY && getCumulativeOffset(this.el).y > scrollY - window.innerHeight/2) {
+    	if(!this.mobile && getCumulativeOffset(this.el).y - window.innerHeight/2 < scrollY && getCumulativeOffset(this.el).y > scrollY - window.innerHeight/2) {
     		if(this.el.paused) {
     			this.el.play();
     		}
-    	} else if (!this.el.paused) {
+    	} else if (!this.mobile && !this.el.paused) {
     		this.el.pause();
     	}
     }

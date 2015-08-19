@@ -1,7 +1,7 @@
 <div class="int-wrapper">
-	<div class="int-scroll-gallery">
+	<div class="int-scroll-gallery" id="{{block.id}}">
 		{{#block.images}}
-			<div class="int-scroll-gallery__image" style="background-image: url('{{src_alt}}');"></div>
+			<div class="int-scroll-gallery__image" style="background-image: url('{{src}}');"></div>
 		{{/block.images}}
 		{{#block.caption}}<div class="int-scroll-gallery__caption">{{.}}</div>{{/block.caption}}
 	</div>

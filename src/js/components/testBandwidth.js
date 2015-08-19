@@ -27,13 +27,7 @@ export function testBandwidth(callback, el, data) {
         ratekbps = Math.min(ratekbps, 10000);
         ratekbps = Math.max(ratekbps, 100);
 
-        if(ratekbps > 4000) {
-          theFormat = "4M";
-        } else if(ratekbps > 2048) {
-          theFormat = "2M";
-        } else {
-          theFormat = "768k"
-        }
+        theFormat = ratekbps;
 
         if(callback){
             var temp = callback;
@@ -67,9 +61,9 @@ export function testBandwidth(callback, el, data) {
             console.log('running from timeout');
             var temp = callback;
             callback = null;
-            temp("768k", el, data);
+            temp("500", el, data);
         }
-    }, 1000);
+    }, 2500);
 };
 
 function timeFile(url, callback) {

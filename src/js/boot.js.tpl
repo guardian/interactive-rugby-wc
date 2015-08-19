@@ -13,7 +13,7 @@ define([], function() {
         boot: function(el, context, config, mediator) {
 
             // Loading message while we fetch JS / CSS
-            el.innerHTML = '<div style="text-align: center; padding: 72px 0;"><img style="margin: auto" src="http://interactive.guim.co.uk/2015/09/rugby-es6/g-optimize.gif"></div>';
+            el.innerHTML = '<div style="text-align: center; padding: 72px 0; min-height: 1000px; min-height: 100vh;"><img style="margin: auto" src="http://interactive.guim.co.uk/2015/09/rugby-es6/g-optimize.gif"></div>';
 
             // Load CSS asynchronously
             window.setTimeout(function() {
