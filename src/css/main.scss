@@ -217,7 +217,7 @@ $text-sans: "Guardian Text Sans Web";
     }
 }
 
-// copy 
+// int-copy 
 .int-copy {
     font-size: 18px;
     line-height: 1.7;
@@ -241,6 +241,13 @@ $text-sans: "Guardian Text Sans Web";
         @include mq(desktop) {
             padding-top: 36px;
         }
+    }
+    &.bold-first-line::first-line {
+        font-weight: 700;
+    }
+
+    &.padding-top {
+        padding-top: 24px;
     }
 }
 
@@ -429,6 +436,9 @@ $text-sans: "Guardian Text Sans Web";
     }
     &.int-inner .int-inner {
         padding-left: 20px;
+    }
+    &.int-outer {
+        padding-bottom: 24px;
     }
 }
 
