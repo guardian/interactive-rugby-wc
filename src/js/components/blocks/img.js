@@ -38,7 +38,7 @@ export class Image extends Block {
         this.timerEl = document.getElementById("timer-" + this.block.randomId);
         this.audioTagEl = document.getElementById("audio-" + this.block.randomId);
 
-        this.playButton.addEventListener("click", this.playClick.bind(this));
+        this.el.addEventListener("click", this.playClick.bind(this));
         console.log(this.playButton);
 
         this.audioTagEl.addEventListener("loadeddata", this.updateTime.bind(this));

@@ -11,6 +11,7 @@ export class VerticalSlideshow extends Block {
         this.block.images.map(function(image, i) {
             this.block.images[i].src = (image.src_path) ? image.src_path + "/" + this.sizes[0] + ".jpg" : false;
         }.bind(this));
+        this.savedScrollLeft = 0;
     }
 
     afterRender() {
@@ -18,6 +19,8 @@ export class VerticalSlideshow extends Block {
         this.wrapperEl = document.getElementById(this.block.wrapperRandomId);
         this.setScroll();
         this.tickEl = document.getElementById("tick-" + this.block.wrapperRandomId);
+        this.wrapperEl.addEventListener("touchend", this.touchEnd.bind(this));
+        this.wrapperEl.addEventListener("touchcancel", this.touchCancel.bind(this));
     }
 
     setScroll() {
@@ -30,22 +33,60 @@ export class VerticalSlideshow extends Block {
         return toReturn[0];
     }
 
-    onScroll(scrollY) {
-        if (scrollY > 2500 && this.setScrollCount < 2) {
-            this.setScroll();
+    touchEnd() {
+        // let next = Math.round(this.wrapperEl.scrollLeft / window.innerWidth)*window.innerWidth;
+
+        if(this.wrapperEl.scrollLeft > this.savedScrollLeft && this.wrapperEl.scrollLeft < this.images.length * window.innerWidth) {
+            // this.wrapperEl.scrollLeft = this.savedScrollLeft + window.innerWidth;
+            this.animateScrollMore(this.wrapperEl, this.savedScrollLeft + window.innerWidth);
+        } else if(this.wrapperEl.scrollLeft < this.savedScrollLeft && this.wrapperEl.scrollLeft > 0) {
+            this.animateScrollLess(this.wrapperEl, this.savedScrollLeft - window.innerWidth);
         }
-        if (this.imageOffsets[this.images.length - 1] > scrollY && this.imageOffsets[0] < scrollY) {
-            this.wrapperEl.classList.add("int-images-fixed");
-            this.tickEl.style.width = ((scrollY - this.imageOffsets[0]) * 100) / (this.imageOffsets[this.images.length - 1] - this.imageOffsets[0]) + "%";
+    }
+
+    touchCancel(e) {
+        this.touchEnd();
+    }
+
+    animateScrollMore(el,targetScroll) {
+        let scrollAmount = (targetScroll - el.scrollLeft)*0.1;
+        el.scrollLeft += (scrollAmount > 1) ? scrollAmount : 1;
+        if(el.scrollLeft < targetScroll) {
+            setTimeout(() => this.animateScrollMore(el, targetScroll));
         } else {
-            this.wrapperEl.classList.remove("int-images-fixed");
+            this.savedScrollLeft = Math.round(this.wrapperEl.scrollLeft/window.innerWidth)*window.innerWidth; 
         }
+    }
 
-        if(scrollY > this.imageOffsets[0] - window.innerHeight*2) {
-            this.images.map((image, i) => this.images[i].style.backgroundImage = "url('" + this.block.images[i].src_path + "/" + this.sizeToUse(this.images[0].clientWidth) + ".jpg" + "')");
+    animateScrollLess(el,targetScroll) {
+        let scrollAmount = (el.scrollLeft - targetScroll)*0.1;
+        el.scrollLeft -= (scrollAmount > 1) ? scrollAmount : 1;
+        if(el.scrollLeft > targetScroll) {
+            setTimeout(() => this.animateScrollLess(el, targetScroll));
+        } else {
+            this.savedScrollLeft = Math.round(this.wrapperEl.scrollLeft/window.innerWidth)*window.innerWidth; 
+
         }
+    }
 
-        this.imageOffsets.map((offset, i) => ((offset < scrollY + window.innerHeight / 2 && i !== 0) || (offset < scrollY && i === 0)) ? this.images[i].classList.add("int-fixed") : this.images[i].classList.remove("int-fixed"));
+    onScroll(scrollY) {
+        if(window.innerWidth > 600) {
+            if (scrollY > 2500 && this.setScrollCount < 2) {
+                this.setScroll();
+            }
+            if (this.imageOffsets[this.images.length - 1] > scrollY && this.imageOffsets[0] < scrollY) {
+                this.wrapperEl.classList.add("int-images-fixed");
+                this.tickEl.style.width = ((scrollY - this.imageOffsets[0]) * 100) / (this.imageOffsets[this.images.length - 1] - this.imageOffsets[0]) + "%";
+            } else {
+                this.wrapperEl.classList.remove("int-images-fixed");
+            }
+
+            if(scrollY > this.imageOffsets[0] - window.innerHeight*2) {
+                this.images.map((image, i) => this.images[i].style.backgroundImage = "url('" + this.block.images[i].src_path + "/" + this.sizeToUse(this.images[0].clientWidth) + ".jpg" + "')");
+            }
+
+            this.imageOffsets.map((offset, i) => ((offset < scrollY + window.innerHeight / 2 && i !== 0) || (offset < scrollY && i === 0)) ? this.images[i].classList.add("int-fixed") : this.images[i].classList.remove("int-fixed"));
+        }
     }
 
     onResize() {
