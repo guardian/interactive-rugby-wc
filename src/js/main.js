@@ -1,6 +1,7 @@
 import reqwest from 'reqwest'
 import mustache from 'mustache'
 import bowser from '../../bower_components/bowser/bowser'
+import viewport from '../../bower_components/viewport-units-buggyfill/viewport-units-buggyfill'
 
 import { cleanData } from './components/helpers'
 import { testBandwidth } from './components/testBandwidth'
@@ -55,6 +56,7 @@ function app(format, el, resp) {
     renderPage(el, blocks);
     initScroll(blocks);
     initResize(blocks);
+    viewport.init();
 
 }
 
@@ -74,7 +76,7 @@ function renderPage(el, blocks) {
 
 function initScroll(blocks) {
     window.onscroll = function() {
-        let scrollY = window.scrollY;
+        let scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
 
         blocks.map(function(block) {
             if (block.onScroll) {
