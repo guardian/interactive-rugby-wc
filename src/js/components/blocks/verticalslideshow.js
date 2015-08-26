@@ -97,7 +97,6 @@ export class VerticalSlideshow extends Block {
 
     onScroll(scrollY) {
         if(window.innerWidth > 600) {
-            console.log(scrollY);
             if(scrollY > 2500 && this.setScrollCount < 2) {
                 this.setScroll();
             }

@@ -15,6 +15,7 @@ import { PullByline } from './components/blocks/pullbyline'
 import { ScrollGallery } from './components/blocks/scrollgallery'
 import { VerticalSlideshow } from './components/blocks/verticalslideshow'
 import { Audio } from './components/blocks/audio'
+import { Related } from './components/blocks/related'
 
 export function init(el, context, config, mediator) {
     reqwest({
@@ -42,10 +43,12 @@ function app(format, el, resp) {
             slideshow: VerticalSlideshow,
             video: Video,
             "scroll-gallery": ScrollGallery,
-            audio: Audio
+            audio: Audio,
+            related: Related
         },
         blocks = [],
-        bodyWidth  = document.getElementsByTagName("body")[0].clientWidth,
+        bodyEl = document.getElementsByTagName("body")[0],
+        bodyWidth  = bodyEl.clientWidth,
         isMobile = (bowser.mobile || bodyWidth < 600) ? true : false;
 
     
@@ -57,7 +60,6 @@ function app(format, el, resp) {
     initScroll(blocks);
     initResize(blocks);
     viewport.init();
-
 }
 
 function renderPage(el, blocks) {

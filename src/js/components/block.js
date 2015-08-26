@@ -20,6 +20,6 @@ export class Block {
     set() {}
 
     generate() {
-        return mustache.render(this.template, {block: this.block, format: this.format, isMobile: this.mobile});
+        return mustache.render(this.template, {block: this.block, config: this.config, format: this.format, isMobile: this.mobile});
     }
 }

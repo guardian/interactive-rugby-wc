@@ -1,0 +1,15 @@
+<div class="int-wrapper">
+	<div class="int-related {{block.class}} int-inner">
+		<div class="int-related__heading">Related content</div>
+		{{#block.content}}
+		<a href="{{link}}" class="int-related__wrapper">
+			<div class="int-related__block">
+				<div class="int-related__block-image" style="background-image: url('{{image_src}}');"></div>
+				<div class="int-related__block-title">
+					{{title}}
+				</div> 
+			</div>
+		</a>
+		{{/block.content}}
+	</div>
+</div>
