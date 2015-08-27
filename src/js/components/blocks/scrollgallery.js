@@ -9,12 +9,14 @@ export class ScrollGallery extends Block {
         this.block.images.map(function(image, i) {
             this.block.images[i].src = (image.src_path) ? image.src_path + "/" + this.sizes[0] + ".jpg" : false;
         }.bind(this));
+        this.setScrollCount = 0;
+        this.upgraded = false;
     }
 
     afterRender() {
     	this.el = document.getElementById(this.block.id);
         this.images = Array.prototype.slice.call(this.el.querySelectorAll(".int-scroll-gallery__image"));
-        this.offset = getCumulativeOffset(this.images[0]).y;
+        this.setScroll();
     }
 
     sizeToUse(elWidth) {
@@ -22,9 +24,19 @@ export class ScrollGallery extends Block {
         return toReturn[0];
     }
 
+    setScroll() {
+        this.offset = getCumulativeOffset(this.images[0]).y;
+        this.setScrollCount++;
+    }
+
     onScroll(scrollY) {
-        if(scrollY > this.offset - window.innerHeight*2) {
+        if(scrollY > 2500 && this.setScrollCount < 2) {
+            this.setScroll();
+        }
+
+        if(scrollY > this.offset - window.innerHeight*2 && this.upgraded !== true) {
             this.images.map((image, i) => this.images[i].style.backgroundImage = "url('" + this.block.images[i].src_path + "/" + this.sizeToUse(this.images[i].clientWidth) + ".jpg" + "')");
+            this.upgraded = true;
         }
     }
 }

@@ -54,6 +54,27 @@ module.exports = function(grunt) {
             }
         },
 
+        postcss: {
+            options: {
+              map: false, // inline sourcemaps
+
+              // or
+              map: {
+                  inline: false, // save all sourcemaps as separate files...
+                  annotation: 'build/' // ...to the specified directory
+              },
+
+              processors: [
+                require('pixrem')(), // add fallbacks for rem units
+                require('autoprefixer-core')({browsers: 'last 10 versions'}), // add vendor prefixes
+                require('cssnano')() // minify the result
+              ]
+            },
+            dist: {
+              src: 'build/main.css'
+            }
+        },
+
         'template': {
             'options': {
                 'data': {
@@ -211,10 +232,11 @@ module.exports = function(grunt) {
 
     grunt.registerTask('harness', ['copy:harness', 'template:harness', 'sass:harness', 'symlink:fonts'])
     grunt.registerTask('interactive', ['shell:interactive', 'template:bootjs', 'sass:interactive'])
-    grunt.registerTask('default', ['clean', 'harness', 'interactive', 'connect', 'watch']);
+    grunt.registerTask('default', ['clean', 'harness', 'interactive', 'postcss', 'connect', 'watch']);
     grunt.registerTask('build', ['clean', 'interactive']);
-    grunt.registerTask('deploy', ['loadDeployConfig', 'prompt:visuals', 'build', 'copy:deploy', 'aws_s3', 'boot_url']);
+    grunt.registerTask('deploy', ['loadDeployConfig', 'prompt:visuals', 'build', 'copy:deploy', 'postcss', 'aws_s3', 'boot_url']);
 
     grunt.loadNpmTasks('grunt-aws');
+    grunt.loadNpmTasks('grunt-postcss');
 
 }

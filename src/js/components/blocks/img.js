@@ -8,11 +8,8 @@ export class Image extends Block {
         this.template = imgTmpl;
         this.block.randomId = Math.random().toString(36).substring(2,7);
         if(this.block.audio) { this.block.audio.randomId = this.block.randomId; } 
-        // // this.block.src = (typeof this.block.src === "string") ? this.block.src.split(this.block.randomId) : this.block.src;
-
-        // console.log(this.sizes, this.block.src, this.block.src_path);
-
         this.block.src = (this.block.src_path) ? this.block.src_path + "/" + this.sizes[0] + ".jpg" : false;
+        this.setScrollCount = 0;
     }
 
     afterRender() {
@@ -31,6 +28,11 @@ export class Image extends Block {
         for(var i = 0; i < this.images.length; i++) {
             this.offsets.push(getCumulativeOffset(this.images[i]).y);
         }
+    }
+
+    setScroll() {
+        this.calcOffsets();
+        this.setScrollCount++;
     }
 
     initAudio() {
@@ -75,6 +77,10 @@ export class Image extends Block {
     }
 
     onScroll(scrollY) {
+        if(scrollY > 2500 && this.setScrollCount < 2) {
+            this.setScroll();
+        }
+        
         for(var i = 0; i < this.offsets.length; i++) {
             if(this.offsets[i] < scrollY + 2*window.innerHeight) {
                 this.images[i].setAttribute("src", this.block.src_path + "/" + this.sizeToUse(this.images[i].clientWidth) + ".jpg");

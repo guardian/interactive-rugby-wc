@@ -48,10 +48,13 @@ function app(format, el, resp) {
         },
         blocks = [],
         bodyEl = document.getElementsByTagName("body")[0],
-        bodyWidth  = bodyEl.clientWidth,
-        isMobile = (bowser.mobile || bodyWidth < 600) ? true : false;
+        isMobile = (bowser.mobile || bowser.tablet || bodyEl.clientWidth < 600) ? true : false;
 
-    
+
+    if(isMobile) {
+        document.querySelector("body").classList.add("is-mobile");
+    }
+
     blocksData.map(function(block, i) {
         blocks.push(new components[block.block](block, resp.config, format, isMobile));
     });

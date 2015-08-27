@@ -90,8 +90,10 @@ export class VerticalSlideshow extends Block {
     toggleClick() {
         if(!this.wrapperEl.classList.contains("int-contain")) {
             this.wrapperEl.classList.add("int-contain");
+            this.toggleEl.classList.add("int-contain");
         } else {
             this.wrapperEl.classList.remove("int-contain");
+            this.toggleEl.classList.remove("int-contain");
         }
     }
 

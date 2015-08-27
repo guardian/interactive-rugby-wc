@@ -9,16 +9,27 @@ export class Header extends Block {
     }
 
     afterRender() {
+        this.vidEl = document.getElementById(this.block.id + "-video");
         this.el = document.getElementById(this.block.id);
+        this.setScroll();
+    }
+
+    setScroll() {
+        this.offset = getCumulativeOffset(this.el).y;
+        this.setScrollCount++;
     }
 
     onScroll(scrollY) {
-    	if(!this.mobile && getCumulativeOffset(this.el).y - window.innerHeight/2 < scrollY && getCumulativeOffset(this.el).y > scrollY - window.innerHeight/2) {
-    		if(this.el.paused) {
-    			this.el.play();
+        if(!this.mobile && scrollY > 2500 && this.setScrollCount < 2) {
+            this.setScroll();
+        }
+
+    	if(!this.mobile && this.offset - window.innerHeight/2 < scrollY && this.offset > scrollY - window.innerHeight/2) {
+    		if(this.vidEl.paused) {
+    			this.vidEl.play();
     		}
-    	} else if (!this.mobile && !this.el.paused) {
-    		this.el.pause();
+    	} else if (!this.mobile && !this.vidEl.paused) {
+    		this.vidEl.pause();
     	}
     }
 }

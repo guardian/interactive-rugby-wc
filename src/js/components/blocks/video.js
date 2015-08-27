@@ -12,23 +12,34 @@ export class Video extends Block {
     afterRender() {
         this.el = document.getElementById(this.block.id);
         this.wrapperEl = document.getElementById(this.block.id + "-wrapper");
+        this.unmuteEl = document.getElementById(this.block.id + "-unmute");
         this.el.addEventListener("ended", this.onEnded.bind(this));
         this.wrapperEl.addEventListener("click", this.wrapperClick.bind(this));
+        this.unmuteEl.addEventListener("click", this.unmute.bind(this));
         this.tickEl = document.getElementById("tick-" + this.block.id);
         this.el.addEventListener("timeupdate", this.updateTime.bind(this));
+        this.autoplay = !this.wrapperEl.parentNode.classList.contains("supporting");
+        
+        this.el.muted = true;
     }
 
     onScroll(scrollY) {
-    	if(!this.mobile && getCumulativeOffset(this.el).y - window.innerHeight/2 < scrollY && getCumulativeOffset(this.el).y > scrollY - window.innerHeight/4 && !this.stopped && !this.wrapperEl.parentNode.classList.contains("supporting")) {
+    	if(!this.mobile && getCumulativeOffset(this.el).y - window.innerHeight/2 < scrollY && getCumulativeOffset(this.el).y > scrollY - window.innerHeight/4 && !this.stopped && this.autoplay) {
     		if(this.el.paused) {
     			this.el.play();
     			this.wrapperEl.setAttribute("playing", "");
                 this.wrapperEl.setAttribute("active", "");
     		}
-    	} else if (!this.mobile && !this.el.paused) {
+    	} else if (!this.mobile && !this.el.paused && this.autoplay) {
     		this.el.pause();
     		this.wrapperEl.removeAttribute("playing", "");
     	}
+    }
+
+    unmute() {
+        event.stopPropagation();
+        this.el.muted = false;
+        this.wrapperEl.setAttribute("unmuted", "");
     }
 
     updateTime() {
@@ -52,10 +63,12 @@ export class Video extends Block {
     		this.wrapperEl.removeAttribute("ended");
     		this.wrapperEl.setAttribute("playing", "");
             this.wrapperEl.setAttribute("active", "");
+            this.unmute();
     	} else {
     		this.stopped = true;
     		this.el.pause();
     		this.wrapperEl.removeAttribute("playing");
+            this.unmute();
     	}
     }
 }
