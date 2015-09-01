@@ -6,6 +6,7 @@ import viewport from '../../bower_components/viewport-units-buggyfill/viewport-u
 
 import { cleanData } from './components/helpers'
 import { testBandwidth } from './components/testBandwidth'
+import { renderPage, initScroll, initResize } from './components/render'
 
 import { Block } from './components/block'
 import { Copy } from './components/blocks/copy'
@@ -33,7 +34,6 @@ export function init(el, context, config, mediator) {
     });
 }
 
-
 function app(format, el, resp) {
     var blocksData = cleanData(resp.blocks),
         components = {
@@ -51,7 +51,6 @@ function app(format, el, resp) {
         bodyEl = document.getElementsByTagName("body")[0],
         isMobile = (bowser.mobile || bowser.tablet || bodyEl.clientWidth < 600) ? true : false;
 
-
     if(isMobile) {
         bonzo(bodyEl).addClass("is-mobile");
     }
@@ -64,49 +63,4 @@ function app(format, el, resp) {
     initScroll(blocks);
     initResize(blocks);
     viewport.init();
-}
-
-function renderPage(el, blocks) {
-    var toRender = "";
-
-    blocks.map(function(block) {
-        toRender += block.generate();
-    });
-
-    el.innerHTML = toRender;
-
-    blocks.map(function(block) {
-        block.afterRender();
-    });
-}
-
-function initScroll(blocks) {
-    window.onscroll = function() {
-        let scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
-
-        blocks.map(function(block) {
-            if (block.onScroll) {
-                block.onScroll(scrollY);
-            }
-        });
-    };
-}
-
-function initResize(blocks) {
-	window.onresize = function() {
-        let width = window.width,
-            bodyEl = document.getElementsByTagName("body")[0];
-
-        if(bowser.mobile || bowser.tablet || bodyEl.clientWidth < 600) {
-            bonzo(bodyEl).addClass("is-mobile");
-        } else {
-            bonzo(bodyEl).removeClass("is-mobile");
-        }
-
-        blocks.map(function(block) {
-            if (block.onResize) {
-                block.onResize(width);
-            }
-        });
-    };
 }
