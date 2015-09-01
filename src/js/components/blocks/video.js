@@ -15,8 +15,10 @@ export class Video extends Block {
         this.wrapperEl = document.getElementById(this.block.id + "-wrapper");
         this.replayEl = document.getElementById(this.block.id + "-unmute");
         this.el.addEventListener("ended", this.onEnded.bind(this));
-        this.wrapperEl.addEventListener("click", this.wrapperClick.bind(this));
-        this.replayEl.addEventListener("click", this.replay.bind(this));
+        this.wrapperEl.addEventListener("click", function(event) { 
+            this.wrapperClick(event) }.bind(this));
+        this.replayEl.addEventListener("click", function(event) {
+            this.replay(event) }.bind(this));
         this.tickEl = document.getElementById("tick-" + this.block.id);
         this.progressEl = document.getElementById("progress-" + this.block.id);
         this.el.addEventListener("timeupdate", this.updateTime.bind(this));
@@ -41,14 +43,14 @@ export class Video extends Block {
     	}
     }
 
-    unmute() {
+    unmute(event) {
         event.stopPropagation();
         this.el.muted = false;
         this.wrapperEl.setAttribute("unmuted", "");
     }
 
-    replay() {
-        this.unmute();
+    replay(event) {
+        this.unmute(event);
         this.el.currentTime = 0;
     }
 
@@ -66,19 +68,19 @@ export class Video extends Block {
     	this.stopped = true;
     }
 
-    wrapperClick() {
+    wrapperClick(event) {
     	if(this.el.paused) {
     		this.el.play();
     		this.stopped = false;
     		this.wrapperEl.removeAttribute("ended");
     		this.wrapperEl.setAttribute("playing", "");
             this.wrapperEl.setAttribute("active", "");
-            this.unmute();
+            this.unmute(event);
     	} else {
     		this.stopped = true;
     		this.el.pause();
     		this.wrapperEl.removeAttribute("playing");
-            this.unmute();
+            this.unmute(event);
     	}
     }
 

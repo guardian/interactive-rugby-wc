@@ -15,6 +15,7 @@ export class VerticalSlideshow extends Block {
             this.block.images[i].src = (image.src_path) ? image.src_path + "/" + this.sizes[0] + ".jpg" : false;
         }.bind(this));
         this.savedScrollLeft = 0;
+        this.initTime = Date.now();
     }
 
     afterRender() {
@@ -44,12 +45,8 @@ export class VerticalSlideshow extends Block {
     }
 
     touchEnd() {
-        // let next = Math.round(this.wrapperEl.scrollLeft / window.innerWidth)*window.innerWidth;
-
         if(this.wrapperEl.scrollLeft > this.savedScrollLeft && this.wrapperEl.scrollLeft < this.images.length * window.innerWidth) {
-            // this.wrapperEl.scrollLeft = this.savedScrollLeft + window.innerWidth;
             let scrollTo = (this.wrapperEl.scrollLeft > this.savedScrollLeft + window.innerWidth) ? Math.round(this.wrapperEl.scrollLeft / window.innerWidth)*window.innerWidth : this.savedScrollLeft + window.innerWidth;
-            console.log(scrollTo);
             this.animateScrollMore(this.wrapperEl, scrollTo);
         } else if(this.wrapperEl.scrollLeft < this.savedScrollLeft && this.wrapperEl.scrollLeft > 0) {
             let scrollTo = (this.wrapperEl.scrollLeft < this.savedScrollLeft - window.innerWidth) ? Math.round(this.wrapperEl.scrollLeft / window.innerWidth)*window.innerWidth : this.savedScrollLeft - window.innerWidth;
@@ -100,7 +97,7 @@ export class VerticalSlideshow extends Block {
 
     onScroll(scrollY) {
         if(window.innerWidth > 600) {
-            if(scrollY > 2500 && this.setScrollCount < 2) {
+            if(scrollY > 2500 && this.setScrollCount < 2 && Date.now() - this.initTime > 2000 && !bonzo(this.wrapperEl).hasClass("int-images-fixed")) {
                 this.setScroll();
             }
             if(this.imageOffsets[this.images.length - 1] > scrollY && this.imageOffsets[0] < scrollY) {

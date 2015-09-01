@@ -48,7 +48,6 @@ export function testBandwidth(callback, el, data) {
                         loadSecondsLarge = loadSeconds;
                         loadedLarge = true;
                         bothLoaded();
-        //              oneLoaded();
                     }
                 });
             }
@@ -71,7 +70,6 @@ function timeFile(url, callback) {
     url += "?bust=" + startTime;
     var err = null;
     loadScript(url, function () {
-//          console.log('probably should just ignore Unexpected SyntaxError');
         var endTime = new Date().getTime();
         var loadTime = endTime - startTime;
         var loadSeconds = loadTime * 0.001;
