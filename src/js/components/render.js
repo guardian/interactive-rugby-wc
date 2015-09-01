@@ -1,4 +1,5 @@
 import bonzo from 'ded/bonzo'
+import bowser from '../../../bower_components/bowser/bowser'
 
 export function renderPage(el, blocks) {
     var toRender = "";

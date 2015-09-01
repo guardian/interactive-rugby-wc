@@ -21,6 +21,7 @@ export class VerticalSlideshow extends Block {
     afterRender() {
         this.images = this.block.images.map((image) => document.getElementById(image.id));
         this.wrapperEl = document.getElementById(this.block.wrapperRandomId);
+        this.$wrapperEl = bonzo(this.wrapperEl);
         this.setScroll();
         this.tickEl = document.getElementById("tick-" + this.block.wrapperRandomId);
         this.toggleEl = document.getElementById("toggle-" + this.block.wrapperRandomId);
@@ -86,22 +87,22 @@ export class VerticalSlideshow extends Block {
     }
 
     toggleClick() {
-        if(!bonzo(this.wrapperEl).hasClass("int-contain")) {
-            bonzo(this.wrapperEl).addClass("int-contain");
+        if(!this.$wrapperEl.hasClass("int-contain")) {
+            this.$wrapperEl.addClass("int-contain");
             bonzo(this.toggleEl).addClass("int-contain");
         } else {
-            bonzo(this.wrapperEl).removeClass("int-contain");
+            this.$wrapperEl.removeClass("int-contain");
             bonzo(this.toggleEl).removeClass("int-contain");
         }
     }
 
     onScroll(scrollY) {
         if(window.innerWidth > 600) {
-            if(scrollY > 2500 && this.setScrollCount < 2 && Date.now() - this.initTime > 2000 && !bonzo(this.wrapperEl).hasClass("int-images-fixed")) {
+            if(scrollY > 2500 && this.setScrollCount < 2 && Date.now() - this.initTime > 2000 && !this.$wrapperEl.hasClass("int-images-fixed")) {
                 this.setScroll();
             }
             if(this.imageOffsets[this.images.length - 1] > scrollY && this.imageOffsets[0] < scrollY) {
-                bonzo(this.wrapperEl).addClass("int-images-fixed");
+                this.$wrapperEl.addClass("int-images-fixed");
                 this.tickEl.style.width = ((scrollY - this.imageOffsets[0]) * 100) / (this.imageOffsets[this.images.length - 1] - this.imageOffsets[0]) + "%";
             } else {
                 bonzo(this.wrapperEl).removeClass("int-images-fixed");

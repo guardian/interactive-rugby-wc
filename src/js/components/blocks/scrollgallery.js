@@ -33,7 +33,6 @@ export class ScrollGallery extends Block {
         if(scrollY > 2500 && this.setScrollCount < 2) {
             this.setScroll();
         }
-
         if(scrollY > this.offset - window.innerHeight*2 && this.upgraded !== true) {
             this.images.map((image, i) => this.images[i].style.backgroundImage = "url('" + this.block.images[i].src_path + "/" + this.sizeToUse(this.images[i].clientWidth) + ".jpg" + "')");
             this.upgraded = true;
