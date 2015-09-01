@@ -1,6 +1,7 @@
 import { Block } from '../../components/block'
 import verticalSlideshowTmpl from '../../templates/vertical-slideshow.html!text'
 import { getCumulativeOffset, debounce } from '../../components/helpers'
+import bonzo from 'ded/bonzo'
 
 import bowser from '../../../../bower_components/bowser/bowser'
 
@@ -88,12 +89,12 @@ export class VerticalSlideshow extends Block {
     }
 
     toggleClick() {
-        if(!this.wrapperEl.classList.contains("int-contain")) {
-            this.wrapperEl.classList.add("int-contain");
-            this.toggleEl.classList.add("int-contain");
+        if(!bonzo(this.wrapperEl).hasClass("int-contain")) {
+            bonzo(this.wrapperEl).addClass("int-contain");
+            bonzo(this.toggleEl).addClass("int-contain");
         } else {
-            this.wrapperEl.classList.remove("int-contain");
-            this.toggleEl.classList.remove("int-contain");
+            bonzo(this.wrapperEl).removeClass("int-contain");
+            bonzo(this.toggleEl).removeClass("int-contain");
         }
     }
 
@@ -103,13 +104,13 @@ export class VerticalSlideshow extends Block {
                 this.setScroll();
             }
             if(this.imageOffsets[this.images.length - 1] > scrollY && this.imageOffsets[0] < scrollY) {
-                this.wrapperEl.classList.add("int-images-fixed");
+                bonzo(this.wrapperEl).addClass("int-images-fixed");
                 this.tickEl.style.width = ((scrollY - this.imageOffsets[0]) * 100) / (this.imageOffsets[this.images.length - 1] - this.imageOffsets[0]) + "%";
             } else {
-                this.wrapperEl.classList.remove("int-images-fixed");
+                bonzo(this.wrapperEl).removeClass("int-images-fixed");
             }
 
-            this.imageOffsets.map((offset, i) => ((offset < scrollY + window.innerHeight / 2 && i !== 0) || (offset < scrollY && i === 0)) ? this.images[i].classList.add("int-fixed") : this.images[i].classList.remove("int-fixed"));
+            this.imageOffsets.map((offset, i) => ((offset < scrollY + window.innerHeight / 2 && i !== 0) || (offset < scrollY && i === 0)) ? bonzo(this.images[i]).addClass("int-fixed") : bonzo(this.images[i]).removeClass("int-fixed"));
         }
 
         if(scrollY > this.imageOffsets[0] - window.innerHeight*2) {

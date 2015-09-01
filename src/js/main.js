@@ -1,6 +1,7 @@
 import reqwest from 'reqwest'
 import mustache from 'mustache'
 import bowser from '../../bower_components/bowser/bowser'
+import bonzo from 'ded/bonzo'
 import viewport from '../../bower_components/viewport-units-buggyfill/viewport-units-buggyfill'
 
 import { cleanData } from './components/helpers'
@@ -52,7 +53,7 @@ function app(format, el, resp) {
 
 
     if(isMobile) {
-        document.querySelector("body").classList.add("is-mobile");
+        bonzo(bodyEl).addClass("is-mobile");
     }
 
     blocksData.map(function(block, i) {
@@ -93,7 +94,14 @@ function initScroll(blocks) {
 
 function initResize(blocks) {
 	window.onresize = function() {
-        let width = window.width;
+        let width = window.width,
+            bodyEl = document.getElementsByTagName("body")[0];
+
+        if(bowser.mobile || bowser.tablet || bodyEl.clientWidth < 600) {
+            bonzo(bodyEl).addClass("is-mobile");
+        } else {
+            bonzo(bodyEl).removeClass("is-mobile");
+        }
 
         blocks.map(function(block) {
             if (block.onResize) {

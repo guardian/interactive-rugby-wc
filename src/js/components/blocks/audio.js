@@ -27,10 +27,6 @@ export class Audio extends Block {
     	this.wrapperEl.removeAttribute("playing"); 
     }
 
-    moveAudio() {
-        this.el.parentNode.parentNode;
-    }
-
     updateTime() {
         let secondsRemaining = this.el.duration - this.el.currentTime;
 

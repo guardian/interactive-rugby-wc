@@ -2,6 +2,7 @@ import { Block } from '../../components/block'
 import imgTmpl from '../../templates/image.html!text'
 import { getCumulativeOffset } from '../../components/helpers'
 import { prettifyTime } from '../../components/helpers'
+import bonzo from 'ded/bonzo'
 
 export class Image extends Block {
     set() {
@@ -56,18 +57,18 @@ export class Image extends Block {
     onEnded() {
         this.audioTagEl.setAttribute("ended", "");
         this.audioTagEl.removeAttribute("playing"); 
-        this.playButton.classList.remove("int-playing");
+        bonzo(this.playButton).removeClass("int-playing");
     }
 
     playClick() {
         if(this.audioTagEl.paused) {
             this.audioTagEl.play();
             this.audioTagEl.setAttribute("playing","");
-            this.playButton.classList.add("int-playing");
+            bonzo(this.playButton).addClass("int-playing");
         } else {
             this.audioTagEl.pause();
             this.audioTagEl.removeAttribute("playing","");
-            this.playButton.classList.remove("int-playing");
+            bonzo(this.playButton).removeClass("int-playing");
         } 
     }
 

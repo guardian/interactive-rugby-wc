@@ -10,4 +10,6 @@
 		<h1 class="int-text-shadow">{{block.headline}}</h1>
 		{{#block.copy}}<h3 class="int-text-shadow">{{.}}</h3>{{/block.copy}}
 	</div>
+	{{#block.credit}}<div class="int-header__credit hide-mobile"><div class="int-outer">{{.}}</div></div>{{/block.credit}}
 </div>
+{{#block.credit}}<div class="int-wrapper int-header__credit-mobile show-mobile"><div class="int-outer">{{.}}</div></div>{{/block.credit}}

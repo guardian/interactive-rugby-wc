@@ -11,12 +11,12 @@
 				</div>
 				{{#block.overlayCaption}}<div class="int-inner"><div class="int-video__overlay-caption int-text-shadow">{{.}}</div></div>{{/block.overlayCaption}}
 			</div>
-			<div class="int-video__progress">
+			<div class="int-video__progress" id="progress-{{block.id}}">
 				<div class="int-video__progress-tick" id="tick-{{block.id}}"></div>
 			</div>
 			<div class="unmute" id="{{block.id}}-unmute">
 				<div class="audio-play"></div>
-				<div class="label">Click for sound</div>
+				<div class="label">Replay with sound</div>
 			</div>
 		</div>
 		{{#block.caption}}<div class="int-video__caption">{{.}}</div>{{/block.caption}}

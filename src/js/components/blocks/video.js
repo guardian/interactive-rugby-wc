@@ -1,6 +1,7 @@
 import { Block } from '../../components/block'
 import videoTmpl from '../../templates/video.html!text'
 import { getCumulativeOffset } from '../../components/helpers'
+import bonzo from 'ded/bonzo'
 
 export class Video extends Block {
     set() {
@@ -12,15 +13,19 @@ export class Video extends Block {
     afterRender() {
         this.el = document.getElementById(this.block.id);
         this.wrapperEl = document.getElementById(this.block.id + "-wrapper");
-        this.unmuteEl = document.getElementById(this.block.id + "-unmute");
+        this.replayEl = document.getElementById(this.block.id + "-unmute");
         this.el.addEventListener("ended", this.onEnded.bind(this));
         this.wrapperEl.addEventListener("click", this.wrapperClick.bind(this));
-        this.unmuteEl.addEventListener("click", this.unmute.bind(this));
+        this.replayEl.addEventListener("click", this.replay.bind(this));
         this.tickEl = document.getElementById("tick-" + this.block.id);
+        this.progressEl = document.getElementById("progress-" + this.block.id);
         this.el.addEventListener("timeupdate", this.updateTime.bind(this));
-        this.autoplay = !this.wrapperEl.parentNode.classList.contains("supporting");
+        this.autoplay = !(bonzo(this.wrapperEl.parentNode).hasClass("supporting"));
         
         this.el.muted = true;
+        this.wrapperWidth = this.wrapperEl.clientWidth;
+
+        this.initProgressClick();
     }
 
     onScroll(scrollY) {
@@ -40,6 +45,11 @@ export class Video extends Block {
         event.stopPropagation();
         this.el.muted = false;
         this.wrapperEl.setAttribute("unmuted", "");
+    }
+
+    replay() {
+        this.unmute();
+        this.el.currentTime = 0;
     }
 
     updateTime() {
@@ -70,5 +80,16 @@ export class Video extends Block {
     		this.wrapperEl.removeAttribute("playing");
             this.unmute();
     	}
+    }
+
+    initProgressClick() {
+        this.progressEl.addEventListener("click", function(event) {
+            event.stopPropagation();
+            this.el.currentTime = this.el.duration * (event.layerX / this.wrapperWidth);
+
+            if(this.wrapperWidth !== this.wrapperEl.clientWidth) {
+                this.el.currentTime = this.el.duration * (event.layerX / this.wrapperEl.clientWidth);
+            }
+        }.bind(this));
     }
 }

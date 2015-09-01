@@ -15,6 +15,7 @@ System.config({
 
 System.config({
   "map": {
+    "ded/bonzo": "github:ded/bonzo@2.0.0",
     "guardian/iframe-messenger": "github:guardian/iframe-messenger@master",
     "hammer": "github:hammerjs/hammer.js@2.0.4",
     "json": "github:systemjs/plugin-json@0.1.0",
