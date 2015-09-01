@@ -21,3 +21,164 @@
 .fonts__text-egyptian { @include fs-bodyCopy(2); }
 .fonts__sans { @include f-headlineSans; }
 .fonts__text-sans { @include fs-textSans(4); }
+
+// reset
+html,
+body {
+    background-color: #e6e6e6;
+}
+
+figure {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: "Guardian Text Egyptian Web";
+    * {
+        box-sizing: border-box;
+    }
+    p {
+        padding-bottom: 1.5em;
+        margin: 0;
+    }
+}
+
+.l-footer {
+    display: block !important;
+}
+
+//shares 
+.share-buttons {
+    transition: opacity 0.3s ease-in-out;
+    display: inline-block;
+    .share-button {
+        height: 32px;
+        width: 32px;
+        border-radius: 34px;
+        display: inline-block;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 28px;
+        margin: 0;
+        background-color: rgba(255, 255, 255, 0.25);
+        transition: 200ms background-color;
+        &.share-button--twitter {
+            background-color: #03b3ee;
+            &:hover {
+                background-color: darken(#03b3ee, 10%);
+            }
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iLTIgLTIgMzIgMzIiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0yMS4zIDEwLjV2LjVjMCA0LjctMy41IDEwLjEtOS45IDEwLjEtMiAwLTMuOC0uNi01LjMtMS42LjMgMCAuNi4xLjguMSAxLjYgMCAzLjEtLjYgNC4zLTEuNS0xLjUgMC0yLjgtMS0zLjMtMi40LjIgMCAuNC4xLjcuMWwuOS0uMWMtMS42LS4zLTIuOC0xLjgtMi44LTMuNS41LjMgMSAuNCAxLjYuNC0uOS0uNi0xLjYtMS43LTEuNi0yLjkgMC0uNi4yLTEuMy41LTEuOCAxLjcgMi4xIDQuMyAzLjYgNy4yIDMuNy0uMS0uMy0uMS0uNS0uMS0uOCAwLTIgMS42LTMuNSAzLjUtMy41IDEgMCAxLjkuNCAyLjUgMS4xLjgtLjEgMS41LS40IDIuMi0uOC0uMy44LS44IDEuNS0xLjUgMS45LjctLjEgMS40LS4zIDItLjUtLjQuNC0xIDEtMS43IDEuNXoiLz48L3N2Zz4=);
+        }
+        &.share-button--facebook {
+            background-color: #3067a3;
+            &:hover {
+                background-color: darken(#3067a3, 10%);
+            }
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iLTIgLTIgMzIgMzIiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0xNy45IDE0aC0zdjhIMTJ2LThoLTJ2LTIuOWgyVjguN0MxMiA2LjggMTMuMSA1IDE2IDVjMS4yIDAgMiAuMSAyIC4xdjNoLTEuOGMtMSAwLTEuMi41LTEuMiAxLjN2MS44aDNsLS4xIDIuOHoiLz48L3N2Zz4=);
+        }
+        &.share-button--email {
+            background-color: #767676;
+            &:hover {
+                background-color: darken(#767676, 10%);
+            }
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iLTIgLTIgMzIgMzIiPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0yMC4yIDExLjdsLS40LS40LTUuNyAyLjctNS43LTIuNy0uMy40IDYgNC45IDYuMS00Ljl6TTIxLjQgN0g2LjVMNSA5LjV2OS4zTDYuNiAyMGgxNC45bDEuNS0xLjJWOS41TDIxLjQgN3ptLS41IDEwLjhINy4xVjkuMmgxMy44djguNnoiLz48L3N2Zz4=)
+        }
+    }
+
+    @include mq($until: desktop) {
+        position: absolute;
+        top: 6px;
+        right: 0px;
+    }
+}
+
+.hide-mobile {
+    @include mq($until: tablet) {
+        display: none;
+    }
+}
+
+.show-mobile {
+    display: none;
+    @include mq($until: tablet) {
+        display: block;
+    }
+}
+
+.hide-until-desktop {
+    @include mq($until: desktop) {
+        display: none;
+    }
+}
+
+.show-until-desktop {
+    display: none;
+    @include mq($until: desktop) {
+        display: block;
+    }
+}
+
+//general 
+.int-outer {
+    width: 100%;
+    margin: auto;
+    position: relative;
+    @include mq(tablet) {
+        width: 740px;
+    }
+    @include mq(desktop) {
+        width: 980px;
+    }
+    @include mq(leftCol) {
+        width: 1140px;
+    }
+    @include mq(wide) {
+        width: 1300px;
+    }
+
+    .int-vertical-slideshow & {
+        .is-mobile & {
+            position: initial;
+        }        
+    }
+}
+
+.int-wrapper {
+    width: 100%;
+    margin: auto;
+    position: relative;
+    background-color: #fff;
+    @include mq(tablet) {
+        width: 740px;
+    }
+    @include mq(desktop) {
+        width: 980px;
+    }
+    @include mq(leftCol) {
+        width: 1140px;
+    }
+    @include mq(wide) {
+        width: 1300px;
+    }
+}
+
+.int-text-shadow {
+    // text-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
+    text-shadow: 2px 2px rgba(0,0,0,0.5);
+}
+
+.int-inner {
+    width: 100%;
+    margin: auto;
+    position: relative;
+
+    @include mq(tablet) {
+        width: 660px;
+        box-sizing: initial;
+    }
+
+    @include mq(desktop, leftCol) {
+        padding-left: 240px;
+    }
+}

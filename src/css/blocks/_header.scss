@@ -1,0 +1,181 @@
+//header 
+.int-header {
+    background-color: #fff;
+    .int-header__text-wrapper {
+        position: absolute;
+    }
+    h1 {
+        font-family: $egyptian;
+        color: #fff;
+        font-weight: 300;
+        padding-top: 120px;
+
+        font-size: 122px;
+        line-height: 126px;
+        max-width: 580px;
+
+        @include mq(desktop) {
+            max-width: 680px;
+            font-size: 144px;
+            line-height: 138px;
+        }
+
+        @include mq($until: tablet) {
+            font-size: 60px;
+            line-height: 60px;
+        }
+    }
+    h3 {
+        font-family: $egyptian;
+        color: #fff;
+    }
+    &.int-header--large {
+        width: 100%;
+        /* padding-bottom: 36px; */
+        background-size: cover;
+        background-position: center center;
+        overflow: hidden;
+        font-size: 0;
+        max-height: 80vh;
+
+        video {
+            width: 100%;
+
+            @include mq(1650px) {
+                margin-top: -100px;
+            }
+        }
+
+        .int-main {
+            position: absolute;
+            top: 0;
+        }
+
+        .int-header__text-wrapper {
+            margin-left: 20px;
+            margin-right: 20px;
+            top: 0;
+
+            @include mq(tablet) {
+                margin-left: calc((100% - 740px)/2);
+            }
+
+            @include mq(desktop) {
+                margin-left: calc((100% - 980px)/2);
+            }
+
+            @include mq(leftCol) {
+                margin-left: calc((100% - 1140px)/2);
+            }
+
+            @include mq(wide) {
+                margin-left: calc((100% - 1300px)/2);
+            }
+        }
+
+        h3 {
+            font-size: 26px;
+            line-height: 30px;
+            position: absolute;
+            left: 520px;
+            top: 156px;
+            padding-top: 12px;
+            border-top: 2px solid #fff;
+            width: 285px;
+            font-weight: 700;
+            box-shadow: inset 0px 2px 0px rgba(0,0,0,0.5);
+
+            @include mq($until: desktop) {
+                left: 450px;
+            }
+
+            @include mq($until: tablet) {
+                position: initial;
+                margin-top: 36px;
+                font-size: 22px;
+                line-height: 26px;
+            }
+        }
+
+        .is-mobile & {
+            height: 80vh;
+            video {
+                display: none;
+            }
+        } 
+
+
+        @include mq(leftCol) {
+            background-image: none !important;
+        }
+    }
+    &.int-header--secondary {
+        font-size: 0;
+
+        video {
+            width: 100%;
+        }
+        .int-header__text-wrapper {
+            bottom: 36px !important;
+            top: auto !important;
+            width: 240px;
+            overflow: hidden;
+
+            @include mq($until: tablet) {
+                width: calc(100% - 40px);
+            }
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 34px;
+            line-height: 36px;
+            font-weight: 700;
+            padding: 0;
+
+            @include mq($until: tablet) {
+                font-size: 28px;
+                line-height: 32px;
+            }
+        }
+        h3 {
+            color: #fff;
+            font-weight: 200;
+            font-size: 60px;
+            line-height: 54px;
+            padding-top: 12px;
+            margin-bottom: 0px;
+            padding-bottom: 4px;
+            position: initial !important;
+            left: auto;
+            top: auto;
+
+            @include mq($until: tablet) {
+                width: 100%;
+                font-size: 36px;
+                line-height: 36px;
+                padding-top: 18px;
+            }
+        }
+    }
+}
+
+.int-header__credit {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    color: rgba(255,255,255,0.7);
+    z-index: 18;
+    font-size: 12px;
+    font-family: $text-sans;
+    width: 100%;
+}
+
+.int-header__credit-mobile {
+    color: #767676;
+    font-size: 12px;
+    font-family: $text-sans;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 6px;
+}

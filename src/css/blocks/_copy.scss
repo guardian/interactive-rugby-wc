@@ -1,0 +1,75 @@
+// int-copy 
+.int-copy {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #333333;
+
+    @include mq($until: tablet) {
+        padding: 0 20px;
+    }
+
+    &.first-block {
+        &::first-letter {
+            font-family: $egyptian;
+            font-weight: 300;
+            color: #000;
+            font-size: 102px;
+            float: left;
+            margin-right: 100px;
+            margin-bottom: 20px;
+            line-height: 100px;
+        }
+        @include mq(desktop) {
+            padding-top: 36px;
+        }
+    }
+    &.bold-first-line::first-line {
+        font-weight: 700;
+    }
+
+    &.padding-top {
+        padding-top: 24px;
+    }
+}
+
+.int-copy__quote {
+    float: left;
+    width: 100%;
+    font-family: $egyptian;
+    font-size: 36px;
+    line-height: 42px;
+    margin-right: 40px;
+    margin-bottom: 24px;
+    color: #767676;
+    font-weight: 200;
+
+    @include mq(desktop) {
+        width: 420px;
+        margin-left: -200px;
+    }
+
+    @include mq(wide) {
+        margin-left: -240px;
+    }
+}
+
+.credits p:first-of-type {
+    font-family: $egyptian;
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 0;
+    padding-bottom: 6px;
+    font-weight: 700;
+    color: #000;
+}
+
+.credits {
+    font-family: $text-sans;
+    color: #767676;
+    font-size: 14px;
+    line-height: 18px;
+
+    a {
+        text-decoration: underline;
+    }
+}

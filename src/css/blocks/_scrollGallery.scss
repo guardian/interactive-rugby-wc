@@ -1,0 +1,85 @@
+// scroll-gallery
+.int-scroll-gallery {
+    overflow: hidden;
+    padding: 24px 20px;
+}
+
+.int-scroll-gallery__caption {
+    font-size: 12px;
+    font-family: $text-sans;
+    color: #767676;
+    float: left;
+    width: 60%;
+    padding-right: 20px;
+
+    @include mq($until: tablet) {
+        width: 100%;
+        padding-right: 0;
+        float: none;
+    }
+}
+
+.int-scroll-gallery__image {
+    background-position: center;
+    background-size: cover;
+
+    @include mq($until: tablet) {
+        width: 100%;
+        padding-bottom: 66%;
+        margin-bottom: 12px;
+    }
+
+    @include mq(tablet) {
+        float: right;
+        margin-bottom: 24px;
+        width: 40%;
+        height: 200px;
+    }
+
+    @include mq(desktop) {
+        height: 240px;
+    }
+
+    @include mq(leftCol) {
+        height: 300px;
+    }
+
+    @include mq(wide) {
+        height: 360px;
+    }
+
+}
+
+.int-scroll-gallery__image:first-of-type {
+    width: 60%;
+    float: left;
+    margin-bottom: 12px;
+    padding-left: 20px;
+    border-right: 20px solid #fff;
+
+    @include mq($until: tablet) {
+        width: 100%;
+        padding-bottom: 66%;
+        float: none;
+        height: auto;
+        margin-bottom: 12px;
+        border-right: 0;
+        padding-left: 0;
+    }
+
+    @include mq(tablet) {
+        height: 360px;
+    }
+
+    @include mq(desktop) {
+        height: 440px;
+    }
+
+    @include mq(leftCol) {
+        height: 600px;
+    }
+
+    @include mq(wide) {
+        height: 680px;
+    }
+}
