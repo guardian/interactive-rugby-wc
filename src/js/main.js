@@ -49,11 +49,14 @@ function app(format, el, resp) {
         },
         blocks = [],
         bodyEl = document.getElementsByTagName("body")[0],
-        isMobile = (bowser.mobile || bowser.tablet || bodyEl.clientWidth < 600) ? true : false;
+        isMobile = (bowser.mobile || bowser.tablet || bodyEl.clientWidth < 600) ? true : false,
+        config = resp.config;
 
     if(isMobile) {
         bonzo(bodyEl).addClass("is-mobile");
     }
+
+    config.sponsorship = (config.sponsorship === "TRUE") ? true : false;
 
     blocksData.map(function(block, i) {
         blocks.push(new components[block.block](block, resp.config, format, isMobile));

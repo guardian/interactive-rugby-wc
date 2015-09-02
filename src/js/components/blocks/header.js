@@ -25,7 +25,6 @@ export class Header extends Block {
         if(!this.mobile && scrollY > 2500 && this.setScrollCount < 2 && Date.now() - this.initTime > 3000) {
             this.setScroll();
         }
-        console.log(this.offset, scrollY, this.offset - window.innerHeight/2);
     	if(!this.mobile && this.offset - window.innerHeight/2 < scrollY && this.offset > scrollY - window.innerHeight/2) {
     		if(this.vidEl.paused) {
     			this.vidEl.play();

@@ -9,7 +9,11 @@ export class Image extends Block {
         this.template = imgTmpl;
         this.block.randomId = Math.random().toString(36).substring(2,7);
         if(this.block.audio) { this.block.audio.randomId = this.block.randomId; } 
-        this.block.src = (this.block.src_path) ? this.block.src_path + "/" + this.sizes[0] + ".jpg" : false;
+        if(!this.block.from_s3 && this.block.from_s3 !== "TRUE") {
+            this.block.src = (this.block.src_path) ? this.block.src_path + "/" + this.sizes[0] + ".jpg" : false;
+        } else {
+            this.block.src = this.block.src_path;
+        }
         this.setScrollCount = 0;
     }
 
@@ -78,14 +82,16 @@ export class Image extends Block {
     }
 
     onScroll(scrollY) {
-        if(scrollY > 2500 && this.setScrollCount < 2) {
-            this.setScroll();
-        }
-        
-        for(var i = 0; i < this.offsets.length; i++) {
-            if(this.offsets[i] < scrollY + 2*window.innerHeight) {
-                this.images[i].setAttribute("src", this.block.src_path + "/" + this.sizeToUse(this.images[i].clientWidth) + ".jpg");
-                this.onScroll = null;
+        if(!this.block.from_s3) {
+            if(scrollY > 2500 && this.setScrollCount < 2) {
+                this.setScroll();
+            }
+            
+            for(var i = 0; i < this.offsets.length; i++) {
+                if(this.offsets[i] < scrollY + 2*window.innerHeight) {
+                    this.images[i].setAttribute("src", this.block.src_path + "/" + this.sizeToUse(this.images[i].clientWidth) + ".jpg");
+                    this.onScroll = null;
+                }
             }
         }
     }

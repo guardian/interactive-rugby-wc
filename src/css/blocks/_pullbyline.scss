@@ -59,6 +59,7 @@
 
     img {
         width: 120px;
+        display: block;
 
         @include mq(tablet, leftCol) {
             width: 100px;

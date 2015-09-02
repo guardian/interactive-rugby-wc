@@ -4,6 +4,9 @@
         width: 100%;
     }
 
+    font-size: 0;
+    line-height: 0;
+
     &.supporting {
         @include mq(tablet) {
             margin-left: 40px;
@@ -43,12 +46,20 @@
             background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIzNTdweCIgaGVpZ2h0PSIzNTdweCIgdmlld0JveD0iMCAwIDM1NyAzNTciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDM1NyAzNTc7IiA+PGcgaWQ9InBhdXNlIj48cGF0aCBmaWxsPSIjNGJjNmRmIiBkPSJNMjUuNSwzNTdoMTAyVjBoLTEwMlYzNTd6IE0yMjkuNSwwdjM1N2gxMDJWMEgyMjkuNXoiLz48L2c+PC9zdmc+) !important;
         }
     }
+
+    iframe {
+        @include mq($until: tablet) {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
 }
 
 .int-image__caption {
     color: #767676;
     font-family: $text-sans;
     font-size: 12px;
+    line-height: 16px;
     padding-top: 6px;
     padding-bottom: 24px;
     max-width: 660px;
@@ -129,14 +140,16 @@
 }
 
 .int-audio__text-wrap {
-    float: left;
+    margin-left: 54px;
 }
 
 .int-audio__caption {
     color: #767676;
-    font-size: 14px; line-height: 14px;
+    font-size: 14px;
+    line-height: 16px;
     font-family: "Guardian Text Sans Web";
     margin-top: 3px;
+    padding-right: 15px;
 }
 
 .int-audio__title {

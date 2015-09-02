@@ -2,6 +2,8 @@
 
 .int-related {
     overflow: hidden;
+    padding-bottom: 48px;
+    padding-top: 12px;
 
     @include mq($until: tablet) {
         padding-left: 20px;
