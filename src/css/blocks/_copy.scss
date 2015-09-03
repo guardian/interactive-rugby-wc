@@ -4,6 +4,11 @@
     line-height: 1.7;
     color: #333333;
 
+    @include mq($until: desktop) {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
     @include mq($until: tablet) {
         padding: 0 20px;
     }
@@ -18,6 +23,13 @@
             margin-right: 50px;
             margin-bottom: 20px;
             line-height: 100px;
+
+                @include mq($until: desktop) {
+                    font-size: 49px;
+                    margin-right: 16px;
+                    line-height: 53px;
+                    margin-bottom: 0;
+                }
         }
         @include mq(desktop) {
             padding-top: 36px;
@@ -29,6 +41,10 @@
 
     &.padding-top {
         padding-top: 24px;
+    }
+
+    &.padding-bottom {
+        padding-bottom: 72px;
     }
 }
 
@@ -51,6 +67,11 @@
     @include mq(wide) {
         margin-left: -240px;
     }
+
+    @include mq($until: desktop) {
+        font-size: 24px;
+        line-height: 28px;
+    }
 }
 
 .credits p:first-of-type {
@@ -62,6 +83,11 @@
     padding-top: 24px;
     font-weight: 700;
     color: #000;
+
+    @include mq($until: desktop) {
+        font-size: 18px;
+        line-height: 22px;
+    }
 }
 
 .credits {

@@ -20,6 +20,11 @@
     font-weight: 700;
     color: #000;
     text-decoration: none !important;
+
+    @include mq($until: desktop) {
+        font-size: 18px;
+        line-height: 22px;
+    }
 }
 
 .int-related__wrapper {

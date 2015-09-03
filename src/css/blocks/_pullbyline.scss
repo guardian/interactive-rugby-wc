@@ -103,6 +103,11 @@
     padding-top: 2px;
     padding-bottom: 6px;
     color: #767676;
+
+    @include mq($until: desktop) {
+        padding-bottom: 24px;
+        padding-top: 0;
+    }
 }
 
 .int-pullbyline__shares {

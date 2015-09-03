@@ -128,13 +128,13 @@
 
         h1 {
             color: #fff;
-            font-size: 28px;
+            font-size: 22px;
             line-height: 32px;
             font-weight: 700;
             padding: 0;
 
             @include mq($until: tablet) {
-                font-size: 28px;
+                font-size: 22px;
                 line-height: 32px;
             }
         }
@@ -152,11 +152,18 @@
 
             @include mq($until: tablet) {
                 width: 100%;
-                font-size: 36px;
-                line-height: 36px;
                 padding-top: 18px;
+                font-size: 28px;
+                line-height: 22px;
+                font-weight: 500;
             }
         }
+    }
+}
+
+.viewport-shallow {
+    .int-header--large {
+        max-height: initial !important;
     }
 }
 

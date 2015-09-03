@@ -56,6 +56,10 @@ function app(format, el, resp) {
         bonzo(bodyEl).addClass("is-mobile");
     }
 
+    if(bodyEl.clientWidth / window.innerHeight > 2) {
+        bonzo(bodyEl).addClass("viewport-shallow");
+    }
+
     config.sponsorship = (config.sponsorship === "TRUE") ? true : false;
 
     blocksData.map(function(block, i) {
